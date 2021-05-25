@@ -76,7 +76,7 @@ class AdventureViewController: UIViewController, CLLocationManagerDelegate, MKMa
         self.dragons.append(dragon)
         
         let circle = MKCircle(center: dragon.coordinate, radius: dragon.radius)
-        self.mapView.add(circle)
+        self.mapView.addOverlay(circle)
         
     }
     
@@ -126,7 +126,7 @@ class AdventureViewController: UIViewController, CLLocationManagerDelegate, MKMa
         locationManager.delegate = self
         
         mapView.delegate = self
-        print("location is long \(locationManager.location?.coordinate.longitude) and lat \(locationManager.location?.coordinate.latitude)")
+        print("location is String(describing: long \(String(describing: locationManager.location?.coordinate.longitude)) and lat \(String(describing: locationManager.location?.coordinate.latitude))")
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
 //        locationManager.startUpdatingHeading()
@@ -158,7 +158,7 @@ class AdventureViewController: UIViewController, CLLocationManagerDelegate, MKMa
         print("this is wherer you are at", locations[0])
         userLocation = locations[0]
         print(manager.distanceFilter)
-        var distanceFromCarlos = userLocation.distance(from: carlosLocation)
+        let distanceFromCarlos = userLocation.distance(from: carlosLocation)
         print("USER DISTANCE FROM CARLOS: \(distanceFromCarlos) meters from CARLOS")
         
         
@@ -277,7 +277,7 @@ class AdventureViewController: UIViewController, CLLocationManagerDelegate, MKMa
     }
     
     func remove(dragification : Dragification){
-        if let index = dragons.index(of: dragification){
+        if let index = dragons.firstIndex(of: dragification){
             dragons.remove(at: index)
             dismiss(animated: true, completion: nil)
             locationManager.startUpdatingLocation()
@@ -292,7 +292,7 @@ class AdventureViewController: UIViewController, CLLocationManagerDelegate, MKMa
             if let circle = d as? MKCircle{
                 let coord = circle.coordinate
                 if circle.radius == dragification.radius && coord.latitude == dragification.coordinate.latitude && coord.longitude == dragification.coordinate.longitude{
-                    mapView?.remove(circle)
+                    mapView?.removeOverlay(circle)
                     break
                 }
             }

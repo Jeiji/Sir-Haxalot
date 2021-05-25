@@ -297,7 +297,7 @@ class HackthonViewController: UIViewController {
     func flashWhite(){
         OperationQueue.main.addOperation {
             self.white.isHidden = false
-            UIView.animate(withDuration: 0.2, delay: 0.2, options: UIViewAnimationOptions.curveEaseOut, animations: {
+            UIView.animate(withDuration: 0.2, delay: 0.2, options: UIView.AnimationOptions.curveEaseOut, animations: {
                 self.animateWhite()
             }, completion: nil)
             self.white.isHidden = true
@@ -543,7 +543,7 @@ class HackthonViewController: UIViewController {
         }
     }
     
-    func update(){
+    @objc func update(){
         if self.time > 0 && self.drag > 0{
             self.time -= 1
             if(self.drag > 0 && self.time/60 == 0){
