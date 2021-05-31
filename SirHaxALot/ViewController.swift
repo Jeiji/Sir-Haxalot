@@ -272,15 +272,18 @@ class ViewController: UIViewController {
     }
     
     func reset(){
-        self.drag = Double(totHP)
-        self.wombo = 0
-        self.womboProgress.setProgress(Float(self.wombo)/10, animated: true)
-        self.message = ""
-        self.gameMessage.text! = ""
-        self.hpProgressView.setProgress(Float(self.drag)/totHP, animated: false)
-        self.time = startTime
-        self.command = self.randoNum()
-        gameOver = false
+        DispatchQueue.main.async {
+            self.drag = Double(self.totHP)
+            self.wombo = 0
+            self.womboProgress.setProgress(Float(self.wombo)/10, animated: true)
+            self.message = ""
+            self.gameMessage.text! = ""
+            self.hpProgressView.setProgress(Float(self.drag)/self.totHP, animated: false)
+            self.time = self.startTime
+            self.command = self.randoNum()
+            self.gameOver = false
+            
+        }
     }
     
     func randoNum () -> Int {

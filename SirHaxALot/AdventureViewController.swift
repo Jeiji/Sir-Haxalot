@@ -30,6 +30,7 @@ class AdventureViewController: UIViewController, CLLocationManagerDelegate, MKMa
     }
     
     
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus){
         mapView.showsUserLocation = (status == .authorizedAlways)
 //        mapCam.heading = locationManager.heading
@@ -109,6 +110,7 @@ class AdventureViewController: UIViewController, CLLocationManagerDelegate, MKMa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        locationManager.delegate = self
         let dragonSound = NSDataAsset(name: "dragonFlap")!
         
         do {
@@ -123,13 +125,14 @@ class AdventureViewController: UIViewController, CLLocationManagerDelegate, MKMa
         }
 
         print("loaded")
-        locationManager.delegate = self
+//        locationManager.delegate = self
         
         mapView.delegate = self
         print("location is String(describing: long \(String(describing: locationManager.location?.coordinate.longitude)) and lat \(String(describing: locationManager.location?.coordinate.latitude))")
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
 //        locationManager.startUpdatingHeading()
+        
         
         mapView.setRegion(MKCoordinateRegion(center:(locationManager.location?.coordinate)!,span:MKCoordinateSpan()), animated: true)
         for _ in 0..<3{
@@ -277,13 +280,15 @@ class AdventureViewController: UIViewController, CLLocationManagerDelegate, MKMa
     }
     
     func remove(dragification : Dragification){
-        if let index = dragons.firstIndex(of: dragification){
-            dragons.remove(at: index)
-            dismiss(animated: true, completion: nil)
-            locationManager.startUpdatingLocation()
-        }
-        self.mapView.removeAnnotation(dragification)
-        removeCircle(dragification:dragification)
+//        if let index = dragons.firstIndex(of: dragification){
+//            dragons.remove(at: index)
+//            DispatchQueue.main.async {
+//                self.dismiss(animated: true, completion: nil)
+//                self.locationManager.startUpdatingLocation()
+//            }
+//        }
+//        self.mapView.removeAnnotation(dragification)
+//        removeCircle(dragification:dragification)
         print("remove")
     }
     
